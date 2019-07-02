@@ -187,6 +187,8 @@ for stationary_point in glob.glob("*.out"):
     target_points = add_points_to_queue(stationary_point,target_points)
 
 print(target_points)
+print(target_points.describe())
+input("Press Enter to continue...")
 job_watcher(target_points)
 
 
