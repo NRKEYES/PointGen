@@ -163,7 +163,7 @@ def job_watcher(target_points):
         shotgun = DBShotgun.DBShotgun(mol)
 
         #For each geometry in queue call shotgun up until max
-        #shotgun.fire()
+        shotgun.fire()
 
 
 
