@@ -3,19 +3,16 @@
 ! $Level
 ! $Basis
 
-
-
-
 ! TIGHTSCF
 
 
-
 ! Slowconv
+! KDIIS
 
 %scf 
 MaxIter 1000     # Here setting MaxIter to a very high number. Intended for systems that require sometimes 1000 iterations before converging (very rare).
-DIISMaxEq 15  # Default value is 5. A value of 15-40 necessary for difficult systems.
-directresetfreq 10 # Default value is 15. A value of 1 (very expensive) is sometimes required. A value between 1 and 15 may be more cost-effective.
+DIISMaxEq 30  # Default value is 5. A value of 15-40 necessary for difficult systems.
+directresetfreq 5 # Default value is 15. A value of 1 (very expensive) is sometimes required. A value between 1 and 15 may be more cost-effective.
 end
 
 
