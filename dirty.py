@@ -133,7 +133,7 @@ def add_points_to_queue(stationary_point, target_points):
                               }, index=[0])
 
 
-        target_points = target_points.append(this_point, sort=False)
+        target_points = target_points.append(this_point)
     
     return target_points
     
