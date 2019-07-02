@@ -116,6 +116,49 @@ print("Stationary Point Energy: {}".format(stationary_point_data.scfenergies[-1]
 
 
 
+def cart_to_sphere ( coord ):
+    x,y,z = coord[0], coord[1], coord[2]
+    
+    r = np.sqrt(x**2 + y**2 + z**2)
+    theta = np.arctan(y/x)
+    phi = np.arctan( np.sqrt(x**2 + y**2) / z )
+    return [r,theta,phi]
+
+def minimize_coords( coords ):
+    # centering should be done first, hence the subtraction
+    # convert all to spherical, centering on Oxygen
+    Mn_sc = cart_to_sphere( np.subtract(parsed_data.atomcoords[-1][0] , parsed_data.atomcoords[-1][1] ))
+    O_sc  = [0,0,0]
+    H1_sc = cart_to_sphere( np.subtract(parsed_data.atomcoords[-1][2] , parsed_data.atomcoords[-1][1] ))
+    H2_sc = cart_to_sphere( np.subtract(parsed_data.atomcoords[-1][3] , parsed_data.atomcoords[-1][1] ))
+    
+    # convert all to minimized
+    # Mn Tail only
+    Mn_sc = np.subtract( Mn_sc,[0, Mn_sc[1], Mn_sc[2]] )
+    H1_sc = np.subtract( H1_sc,[0, Mn_sc[1], Mn_sc[2]] )
+    H2_sc = np.subtract( H2_sc,[0, Mn_sc[1], Mn_sc[2]] )
+    #flatten H1 onto plane
+    H1_sc = np.subtract( H1_sc,[0,0, H1_sc[2]] )
+    H2_sc = np.subtract( H2_sc,[0,0, H1_sc[2]] )
+    
+    this_point = pd.DataFrame({'Energy':parsed_data.scfenergies[-1],
+                                                                        
+                                'Mnr':  Mn_sc[0],
+                               
+                               'H1r' :  H1_sc[0],
+                               'H1theta' : H1_sc[1],
+                               
+                               'H2r':   H1_sc[0],
+                                'H2theta' : H2_sc[1],
+                               'H2phi' : H2_sc[2],
+                               
+                              }, index=[0])
+
+
+
+    for coord in coords:
+        pass
+
 
 
 #Put points in queue
