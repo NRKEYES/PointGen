@@ -116,7 +116,7 @@ def add_points_to_queue(stationary_point, target_points):
     print(len(orthoganal_modes))
 
     # Generate Jobs
-    current_range = np.linspace(0,1,2) # change this later to be more clever
+    current_range = np.linspace(-0.5,1.5,4) # change this later to be more clever
 
     for p in itertools.product(current_range, repeat=len(orthoganal_modes)):
         # combine orthogonal modes with eachother and a magnitude factor
