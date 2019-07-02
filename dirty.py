@@ -114,7 +114,10 @@ def add_points_to_queue(stationary_point, target_points):
 
     for p in itertools.permutations(current_range):
         # combine orthogonal modes with eachother and a magnitude factor
-        displacement = np.multiply(orthoganal_modes[0],p[0]) #+ orthoganal_modes[1]*p[1] + orthoganal_modes[2]*p[2] + orthoganal_modes[3]*p[3] 
+
+        displacement = np.zeros_like(orthoganal_modes[0])
+        for number,mode in enumerate(orthoganal_modes):
+            displacement += np.multiply(orthoganal_modes[0],p[0])
 
         displaced_coords = np.add( displacement, corrected_coords)
 
