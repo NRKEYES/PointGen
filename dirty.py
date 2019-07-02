@@ -146,7 +146,7 @@ def sphere_to_cart( coord ):
     # z=rcosϕ
     return  [   [coord[0]*np.sin(0)*np.cos(0), coord[0]*np.sin(0)*np.sin(0),  coord[0]*np.cos(0)],
                 [0,0,0],
-                [coord[1]*np.sin(0)*np.cos(coord[2]), coord[1]*np.sin(0)*np.sin(coord[2]),  coord[0]*np.cos(0)],
+                [coord[1]*np.sin(0)*np.cos(coord[2]), coord[1]*np.sin(0)*np.sin(coord[2]),  coord[1]*np.cos(2)],
                 [coord[3]*np.sin(coord[5])*np.cos(coord[4]), coord[3]*np.sin(coord[5])*np.sin(coord[4]),  coord[3]*np.cos(coord[5])]
             ]
 
