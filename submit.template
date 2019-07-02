@@ -21,7 +21,7 @@ SCRATCH="/xena/scratch/$$USER/$$PBS_JOBNUM"  # To use xena-scratch
 
 # Now create the scratch, copy over input, cd and run
 mkdir -p "$$SCRATCH" || exit 50
-cp  "/users/nkeyes/QuikNDirty/$DirectoryName/$InputName" "$$SCRATCH"  || exit 51
+cp  "$$PBS_O_WORKDIR/$DirectoryName/$InputName" "$$SCRATCH"  || exit 51
 cd "$$SCRATCH"
 
 $$ORCA_EXEC "$InputName" > "$OutputName"
@@ -29,7 +29,7 @@ $$ORCA_EXEC "$InputName" > "$OutputName"
 
 
 # Job is done, copy output and the xyz file back
-cp * "/users/nkeyes/QuikNDirty/$DirectoryName/"
+cp * "$$PBS_O_WORKDIR/$DirectoryName/"
 
 # clean up
 #rm -rf $$SCRATCH
