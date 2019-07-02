@@ -117,7 +117,7 @@ def add_points_to_queue(stationary_point, target_points):
 
         displacement = np.zeros_like(orthoganal_modes[0])
         for number,mode in enumerate(orthoganal_modes):
-            displacement += np.multiply(orthoganal_modes[0],p[0])
+            displacement += np.multiply(orthoganal_modes[number],p[number])
 
         displaced_coords = np.add( displacement, corrected_coords)
 
