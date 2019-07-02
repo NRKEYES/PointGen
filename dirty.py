@@ -96,6 +96,11 @@ def add_points_to_queue(stationary_point, target_points):
     print("\n Currently accesing: {} \n".format(stationary_point) )
     data = cclib.io.ccopen(stationary_point ).parse()
 
+    print("There are {} atoms and {} MOs".format(data.natom,
+                                        data.nmo))
+
+    print("Stationary Point Energy: {}".format(data.scfenergies[-1]))
+
     # Get the well's eq geom to apply the displacements to
     corrected_coords = minimize_coords(data.atomcoords[-1] )
     print("\nEquilibrium Geometry: \n{}".format( corrected_coords ) )
@@ -108,11 +113,12 @@ def add_points_to_queue(stationary_point, target_points):
         print(normal_freq)
         print("Displacements:\n{}".format( corrected_disp ) )
         orthoganal_modes.append(corrected_disp)
+    print(len(orthoganal_modes))
 
     # Generate Jobs
     current_range = np.linspace(0,1,2) # change this later to be more clever
 
-    for p in itertools.permutations(current_range, r=len(orthoganal_modes)):
+    for p in itertools.product(current_range, repeat=len(orthoganal_modes)):
         # combine orthogonal modes with eachother and a magnitude factor
 
         displacement = np.zeros_like(orthoganal_modes[0])
@@ -178,15 +184,6 @@ target_points = pd.DataFrame(columns=column_list)
 print(target_points)
 
 for stationary_point in glob.glob("*.out"):
-    print(stationary_point)
-    parser = cclib.io.ccopen(stationary_point)
-    stationary_point_data = parser.parse()
-
-    print("There are {} atoms and {} MOs".format(stationary_point_data.natom,
-                                        stationary_point_data.nmo))
-
-    print("Stationary Point Energy: {}".format(stationary_point_data.scfenergies[-1]))
-
     target_points = add_points_to_queue(stationary_point,target_points)
 
 print(target_points)
