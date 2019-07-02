@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#PBS -l walltime=48:00:00
+#PBS -l nodes=1:ppn=8
+#PBS -N $ID
+#PBS -l mem=8000mb
+
+
+PBS_JOBNUM=$$(echo $$PBS_JOBID | cut -d"." -f1) 
+
+source /etc/profile.d/modules.sh
+
+module load orca
+export ORCA_EXEC=$$(which orca)
+
+
+# Run Orca on fast storage. Pick either wheeler scratch or /tmp
+#SCRATCH="/tmp/$$USER/$$PBS_JOBNUM"  # To use xena compute node hard drives
+SCRATCH="/xena/scratch/$$USER/$$PBS_JOBNUM"  # To use xena-scratch
+#SCRATCH="/gibbs/scratch/$$USER/$$PBS_JOBNUM"  # To use gibbs
+
+# Now create the scratch, copy over input, cd and run
+mkdir -p "$$SCRATCH" || exit 50
+cp  "/users/nkeyes/QuikNDirty/$DirectoryName/$InputName" "$$SCRATCH"  || exit 51
+cd "$$SCRATCH"
+
+$$ORCA_EXEC "$InputName" > "$OutputName"
+
+
+
+# Job is done, copy output and the xyz file back
+cp * "/users/nkeyes/QuikNDirty/$DirectoryName/"
+
+# clean up
+#rm -rf $$SCRATCH

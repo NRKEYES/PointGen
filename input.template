@@ -1,0 +1,45 @@
+# $Name
+
+! $Level
+! $Basis
+
+
+
+
+! TIGHTSCF
+
+
+
+! Slowconv
+
+%scf 
+MaxIter 1000     # Here setting MaxIter to a very high number. Intended for systems that require sometimes 1000 iterations before converging (very rare).
+DIISMaxEq 15  # Default value is 5. A value of 15-40 necessary for difficult systems.
+directresetfreq 10 # Default value is 15. A value of 1 (very expensive) is sometimes required. A value between 1 and 15 may be more cost-effective.
+end
+
+
+! Grid6 NOFINALGRID
+
+
+%scf MaxIter 750 end 
+
+%geom
+Calc_Hess true # Request an exact Hessian in the first optimization step
+NumHess true #  Request the numerical exact Hessian (only one available for this method).
+Recalc_Hess 10 # Recalculate the exact Hessian every 10 steps.
+end
+
+
+
+%coords
+	CTyp = xyz
+	Charge = $Charge
+	Mult = $Multi
+	coords
+$XYZ
+	end
+end
+
+
+
