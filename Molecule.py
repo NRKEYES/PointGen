@@ -1,7 +1,7 @@
 class Molecule(object):
     def __init__(self, _data, _charge = 1, _spin = 5, name = ''):
         
-        self.name = str(_data['Displacements'])
+        self.name = name
         self.charge = _charge
         self.multiplicity = _spin
         self.atoms = _data['Atoms']

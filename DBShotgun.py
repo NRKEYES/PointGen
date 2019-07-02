@@ -92,8 +92,6 @@ class DBShotgun(object):
 
         with open('orca.pbs', 'w') as writingFile:
             writingFile.write(substituted)
-
-        time.sleep(1)
         return
 
 
@@ -107,6 +105,7 @@ class DBShotgun(object):
 
         for basis, func in itertools.product(self.basisSet, self.functional):
             self.write_input(current_filename, func, basis)
+            time.sleep(.1) # slow down a bit
             #if local, no submit needed
             try:
                 self.submit_local(current_filename)
@@ -124,4 +123,3 @@ class DBShotgun(object):
         print('                           `----------\'       \_\']\__  (__)              |   ')
         print('                                                     \__________         |    ')
         print('                                                                \________\     ')
-
