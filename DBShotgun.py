@@ -99,7 +99,7 @@ class DBShotgun(object):
 
         for basis, func in itertools.product(self.basisSet, self.functional):
             self.write_input(current_filename, func, basis)
-            time.sleep(3) # slow down a bit
+            time.sleep(2) # slow down a bit
             #if local, no submit needed
             try:
                 self.write_submit(current_filename)
