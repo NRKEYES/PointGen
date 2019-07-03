@@ -38,17 +38,13 @@ class DBShotgun(object):
             print ('Directory Created: {}'.format(self.directoryName))
         else:
             print ('Directory Exists: {}'.format(self.directoryName))
-            
         
         # Set up range of basis set and functional
         self.functional = functional
         self.basisSet = basisSet
 
-
     def filename(self):
         return time.strftime("%Y%m%d-%H%M%S")
-
-
 
     def write_input(self, _filename, _func, _basis):
         # Read in input template
@@ -67,19 +63,11 @@ class DBShotgun(object):
                                     XYZ         = self.molecule.get_xyz_string())
                 f.write(out)
 
-    def submit_local(self, _filename):
-        print(sub.check_call(['pwd']))
-        with open( self.directoryName + '/' + _filename + '.out' , 'w') as f:
-            return sub.call(['orca', self.directoryName + '/' + _filename + '.inp'], stdout=f)
-
-
-
     def write_submit(self, _filename):
         try:
             os.remove('orca.pbs')
         except:
             print ("No orca file to delete. Continuing.")
-
 
         #Write Orca Submit File 
         with open('submit.template' , 'r') as template:
@@ -94,10 +82,13 @@ class DBShotgun(object):
             writingFile.write(substituted)
         return
 
-
     def submit_job(self):
         return sub.check_output(['qsub','orca.pbs'])
 
+    def submit_local(self, _filename):
+        print(sub.check_call(['pwd']))
+        with open( self.directoryName + '/' + _filename + '.out' , 'w') as f:
+            return sub.call(['orca', self.directoryName + '/' + _filename + '.inp'], stdout=f)
 
     def fire(self):
         self.shotgun_graphic()
@@ -105,13 +96,14 @@ class DBShotgun(object):
 
         for basis, func in itertools.product(self.basisSet, self.functional):
             self.write_input(current_filename, func, basis)
-            time.sleep(.1) # slow down a bit
+            time.sleep(1) # slow down a bit
             #if local, no submit needed
             try:
-                self.submit_local(current_filename)
-            except:
                 self.write_submit(current_filename)
                 self.submit_job()
+            except:
+                self.submit_local(current_filename)
+
             
         return
 

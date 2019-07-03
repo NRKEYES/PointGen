@@ -46,7 +46,13 @@ def cart_to_sphere ( coord ):
     phi = np.arctan( np.sqrt(x**2 + y**2) / z )
     return [r,theta,phi]
 
-
+def freq_in(freq, mass1, mass2):
+    # freq must be in wavenumbers
+     
+    dynes_per_cm = ((freq/4.12)**2)*(mass1*mass2/(mass1+mass2))
+    
+    mdynes_per_ang = dynes_per_cm*1000/(100000000)
+    return mdynes_per_ang
 
 #######################################################
 #    Main Code                                        #
