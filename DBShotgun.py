@@ -15,6 +15,9 @@ import numpy as np
 import pandas as pd
 
 
+from datetime import datetime
+
+
 import platform
 platform.node()
 
@@ -44,7 +47,7 @@ class DBShotgun(object):
         self.basisSet = basisSet
 
     def filename(self):
-        return time.strftime("%d-%H%M%S")
+        return datetime.now().strftime("%d%H:%M:%S.%f")
 
     def write_input(self, _filename, _func, _basis):
         # Read in input template
