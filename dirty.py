@@ -13,7 +13,7 @@ import Molecule
 import DBShotgun
 import itertools
 import time
-import "Chem_Tools.py"
+from Chem_Tools import *
 
 import numpy as np
 import pandas as pd
