@@ -8,15 +8,13 @@
 
 PBS_JOBNUM=$$(echo $$PBS_JOBID | cut -d"." -f1) 
 
-source /etc/profile.d/modules.sh
-
 module load orca
 export ORCA_EXEC=$$(which orca)
 
 
 # Run Orca on fast storage. Pick either wheeler scratch or /tmp
-#SCRATCH="/tmp/$$USER/$$PBS_JOBNUM"  # To use xena compute node hard drives
-SCRATCH="/xena/scratch/$$USER/$$PBS_JOBNUM"  # To use xena-scratch
+SCRATCH="/tmp/$$USER/$$PBS_JOBNUM"  # To use xena compute node hard drives
+#SCRATCH="/xena/scratch/$$USER/$$PBS_JOBNUM"  # To use xena-scratch
 #SCRATCH="/gibbs/scratch/$$USER/$$PBS_JOBNUM"  # To use gibbs
 
 # Now create the scratch, copy over input, cd and run
