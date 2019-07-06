@@ -134,8 +134,8 @@ def sphere_to_cart( coord ):
                 ]
 
 
-    print(cart_coords)
-    input("hit enter")
+    #print(cart_coords)
+    #input("hit enter")
 
     return  cart_coords
 
