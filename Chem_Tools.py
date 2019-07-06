@@ -40,9 +40,13 @@ def cart_to_sphere ( coord ):
     x,y,z = coord[0], coord[1], coord[2]
     
     r = np.sqrt(x**2 + y**2 + z**2)
-    theta = np.arctan(y/x)
-    phi = np.arctan( np.sqrt(x**2 + y**2) / z )
+    
+    theta = np.arctan( y/x )
+        
+    phi = np.arccos( z/r )    
+
     return [r,theta,phi]
+
 
 def freq_in(freq, mass1, mass2):
     # freq must be in wavenumbers

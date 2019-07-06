@@ -28,19 +28,35 @@ def minimize_coords( coords ):
     H1_sc = cart_to_sphere( np.subtract(coords[2] , coords[1] ))
     H2_sc = cart_to_sphere( np.subtract(coords[3] , coords[1] ))
     
+    #coords now in:
+    # r, theta, phi
+    
+    
     # convert all to minimized
-    # Mn Tail only
-    Mn_sc = np.subtract( Mn_sc,[0, Mn_sc[1], Mn_sc[2]] )
-    H1_sc = np.subtract( H1_sc,[0, Mn_sc[1], Mn_sc[2]] )
-    H2_sc = np.subtract( H2_sc,[0, Mn_sc[1], Mn_sc[2]] )
-    #flatten H1 onto plane
+    # remove Mn extras
+    Mn_sc = np.subtract( Mn_sc, [0, Mn_sc[1], Mn_sc[2]] )
+    H1_sc = np.subtract( H1_sc, [0, Mn_sc[1], Mn_sc[2]] )
+    H2_sc = np.subtract( H2_sc, [0, Mn_sc[1], Mn_sc[2]] )
+    #remove H1 Extra--- So H1 is on xz plane
     H1_sc = np.subtract( H1_sc,[0,0, H1_sc[2]] )
     H2_sc = np.subtract( H2_sc,[0,0, H1_sc[2]] )
     
-    Mnr,H1r,H1theta,H2r,H2theta,H2phi = Mn_sc[0], H1_sc[0], H1_sc[1], H2_sc[0], H2_sc[1], H2_sc[2]
-
+    Mnr, H1r, H1theta, H2r, H2theta, H2phi = Mn_sc[0], H1_sc[0], H1_sc[1], H2_sc[0], H2_sc[1], H2_sc[2]
+    
+    if np.isnan(H1theta):
+        H1theta=0
+    if np.isnan(H2theta):
+        H2theta=0
+  
     return Mnr,H1r,H1theta,H2r,H2theta,H2phi
 
+
+
+def distance_check(new_point, old_points):
+    # sqrt(     𝑟2+𝑟′2−2𝑟𝑟′[sin(𝜃)sin(𝜃′)cos(𝜙−𝜙′)+cos(𝜃)cos(𝜃′)]    )
+    total_distance = new_point.Mnr - old_points
+
+    pass
 
 
 
