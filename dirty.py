@@ -30,6 +30,7 @@ def minimize_coords( coords ):
     
     #coords now in:
     # r, theta, phi
+    # phi is azimuth
     
     
     # convert all to minimized
@@ -38,8 +39,8 @@ def minimize_coords( coords ):
     H1_sc = np.subtract( H1_sc, [0, Mn_sc[1], Mn_sc[2]] )
     H2_sc = np.subtract( H2_sc, [0, Mn_sc[1], Mn_sc[2]] )
     #remove H1 Extra--- So H1 is on xz plane
-    H1_sc = np.subtract( H1_sc,[0,0, H1_sc[2]] )
-    H2_sc = np.subtract( H2_sc,[0,0, H1_sc[2]] )
+    H1_sc = np.subtract( H1_sc,[0,H1_sc[2]], 0)
+    H2_sc = np.subtract( H2_sc,[0,H1_sc[2]], 0 )
     
     Mnr, H1r, H1theta, H2r, H2theta, H2phi = Mn_sc[0], H1_sc[0], H1_sc[1], H2_sc[0], H2_sc[1], H2_sc[2]
     
@@ -122,11 +123,16 @@ def sphere_to_cart( coord ):
     # x=rsinϕcosθ
     # y=rsinϕsinθ
     # z=rcosϕ
-    return  [   [coord[0]*np.sin(0)*np.cos(0), coord[0]*np.sin(0)*np.sin(0),  coord[0]*np.cos(0)],
-                [0,0,0],
-                [coord[1]*np.sin(0)*np.cos(coord[2]), coord[1]*np.sin(0)*np.sin(coord[2]),  coord[1]*np.cos(2)],
-                [coord[3]*np.sin(coord[5])*np.cos(coord[4]), coord[3]*np.sin(coord[5])*np.sin(coord[4]),  coord[3]*np.cos(coord[5])]
-            ]
+    cart_coords = [ [coord[0]*np.sin(0)*np.cos(0), coord[0]*np.sin(0)*np.sin(0),  coord[0]*np.cos(0)],
+                    [0,0,0],
+                    [coord[1]*np.sin(0)*np.cos(coord[2]), coord[1]*np.sin(0)*np.sin(coord[2]),  coord[1]*np.cos(2)],
+                    [coord[3]*np.sin(coord[5])*np.cos(coord[4]), coord[3]*np.sin(coord[5])*np.sin(coord[4]),  coord[3]*np.cos(coord[5])]
+                ]
+
+    print(cart_coords)
+    input("hit enter")
+
+    return  cart_coords
 
 
 def job_watcher(target_points):
