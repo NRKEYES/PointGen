@@ -43,8 +43,8 @@ def minimize_coords( coords ):
     H1_sc = np.subtract( H1_sc, [0, Mn_sc[1], Mn_sc[2]] )
     H2_sc = np.subtract( H2_sc, [0, Mn_sc[1], Mn_sc[2]] )
     #remove H1 Extra--- So H1 is on xz plane
-    H1_sc = np.subtract( H1_sc,[0,0, H1_sc[2] ] )
-    H2_sc = np.subtract( H2_sc,[0,0, H1_sc[2] ] )
+    H1_sc = np.subtract( H1_sc,[0,H1_sc[1], 0 ] )
+    H2_sc = np.subtract( H2_sc,[0,H1_sc[1], 0 ] )
     
     Mnr, H1r, H1theta, H2r, H2theta, H2phi = Mn_sc[0], H1_sc[0], H1_sc[1], H2_sc[0], H2_sc[1], H2_sc[2]
     
