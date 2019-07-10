@@ -46,7 +46,7 @@ def cart_to_sphere ( coord ):
         theta = 0
     
     try:
-        phi = np.arccos( z/r ):
+        phi = np.arccos( z/r )
     except:
         phi = 0
 
