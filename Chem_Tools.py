@@ -36,18 +36,21 @@ def get_element_symbol(element_number):
 
 
 def cart_to_sphere ( coord ):
+    #print(coord)
     x,y,z = coord[0], coord[1], coord[2]
+
     
     r = np.sqrt(x**2 + y**2 + z**2)
     
-    try:
-        theta = np.arctan( y/x )
-    except:
+    
+    theta = np.arctan( y/x )
+    if np.isnan(theta): 
+        #print("Theta NaN")
         theta = 0
     
-    try:
-        phi = np.arccos( z/r )
-    except:
+
+    phi = np.arccos( z/r )
+    if np.isnan(phi):
         phi = 0
 
     return [r,phi,theta]
