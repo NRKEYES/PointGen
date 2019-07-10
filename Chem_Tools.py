@@ -35,18 +35,22 @@ def get_element_symbol(element_number):
 
 
 
-
 def cart_to_sphere ( coord ):
     x,y,z = coord[0], coord[1], coord[2]
     
     r = np.sqrt(x**2 + y**2 + z**2)
     
-    theta = np.arctan( y/x )
-
+    try:
+        theta = np.arctan( y/x )
+    except:
+        theta = 0
     
-    phi = np.arccos( z/r )    
+    try:
+        phi = np.arccos( z/r ):
+    except:
+        phi = 0
 
-    return [r,theta,phi]
+    return [r,phi,theta]
 
 
 def freq_in(freq, mass1, mass2):
